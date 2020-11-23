@@ -1,0 +1,42 @@
+
+.card {	
+	display: flex!important; 
+}
+
+.a{
+	width: 80px;
+}
+
+#list-creator {
+	width: 113%;
+	display: flex;
+	padding-left: 0px;
+	flex-flow: row wrap;
+	margin-right: 0px;
+}
+
+#list-creator li{
+	margin-right: 10px;
+	margin-bottom: 10px;
+	list-style: none;
+}
+
+#list-posts li{
+	margin-right: 10px;
+	margin-bottom: 10px;
+	list-style: none;
+}
+
+.mapouter {
+	position: relative;
+	text-align: right;
+	height: 500px;
+	width: 600px;
+}
+
+.gmap_canvas {
+	overflow: hidden;
+	background: none !important;
+	height: 500px;
+	width: 600px;
+}

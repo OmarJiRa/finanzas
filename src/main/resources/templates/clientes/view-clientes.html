@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}">
+<link rel="stylesheet" th:href="@{/css/solid.min.css}">
+<link rel="stylesheet" th:href="@{/css/market.css}">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+
+<title>Layout</title>
+</head>
+<body class="bg-light">
+
+	<header th:fragment="header">
+
+		<nav class="navbar navbar-expand-lg navbar-custom navbar-dark">
+
+
+			<a class="navbar-brand" th:href="@{~/layout}"> <img
+				th:src="@{/images/logo.svg}"
+				style="margin-left: 50px; margin-right: 50px" width="200"
+				height="60" alt="Icons">
+			</a>
+
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/pedidos/view}"><i class="fas fa-shopping-bag"></i>
+							Mis Ventas</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/clientes/view}"><i class="fas fa-users"></i> Mis
+							Clientes</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/perfil}"><i
+							class="fas fa-store"></i> Mi Tienda</a></li>
+
+				</ul>
+				<a sec:authorize="isAnonymous()" th:href="@{/login}" type="button"
+					class="btn btn-info" style="margin-right: 50px;"> <i
+					class="fas fa-user"></i> Iniciar Sesión
+				</a>
+				<ul sec:authorize="isAuthenticated()" class="navbar-nav"
+					style="margin-right: 50px;">
+					<li class="nav-item dropdown"><a
+						class="btn btn-info dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <i class="fas fa-user-circle"></i>
+							User: <span sec:authentication="name">Username</span>
+					</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" th:href="@{/perfil}"> <i
+								class="fas fa-id-card"></i> Ver mi perfil
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a>
+						</div></li>
+				</ul>
+
+			</div>
+
+		</nav>
+	</header>
+	<div class="d-flex" id="content-wrapper">
+
+		<div class="container " style="margin-top: 20px;">
+			<section class="text-center">
+
+				&nbsp;
+				<div class="card w-90 text-center">
+					<div class="card-header">
+						<strong>MIS CLIENTES</strong>
+					</div>
+					<div class="card-body">
+						<table class="table table-striped">
+							<thead class="thead-dark">
+								<tr>
+									<th class="text-center" scope="col">Nombre</th>
+									<th class="text-center" scope="col">Nro de Documento</th>
+									<th class="text-center" scope="col">Dirección</th>
+									<th class="text-center" scope="col">Perfil</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="cliente : ${tienda.clientes}">
+
+									<th class="text-center"
+										th:text="${cliente.nombresApellidos}" scope="row">.</th>
+									<td class="text-center"
+										th:text="${cliente.numeroDocumento}">
+									</td>
+									<td class="text-center"
+										th:text="${cliente.direccion}">
+									</td>
+									<td class="text-center"><a
+										th:href="@{/clientes/view}+'-'+${cliente.id}"
+										class="btn btn-warning"><i class="fas fa-address-book"></i> Ver</a></td>
+								</tr>
+							</tbody>
+
+						</table>
+
+
+
+						<button class="btn btn-success" data-toggle="modal"
+							data-target="#addModal">
+							<i class="  fas fa-book"></i> Agregar nuevo
+						</button>
+					</div>
+				</div>
+
+
+			</section>
+		</div>
+	</div>
+
+	<div class="modal fade" id="addModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Registro nuevo</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body text-justify">
+
+					<!----el form---->
+					<span><strong>Sobre el cliente</strong><br></span>
+					<form th:action="@{/clientes/save}" th:object="${cliente}"
+						method="post">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label>Nombres y Apellidos</label> <input type="text"
+									class="form-control" th:field="*{nombresApellidos}">
+							</div>
+							<div class="form-group col-md-4">
+								<label>Dirección</label> <input type="text" class="form-control"
+									th:field=*{direccion}>
+							</div>
+							<div class="form-group col-md-4">
+								<label>Nro de documento</label> <input type="text"
+									class="form-control" th:field=*{numeroDocumento}>
+							</div>
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label>Email</label> <input type="text" class="form-control"
+									th:field="*{email}">
+							</div>
+							<div class="form-group col-md-4">
+								<label>Teléfono</label> <input type="text" class="form-control"
+									th:field=*{telefono}>
+							</div>
+
+						</div>
+						<span><strong>Sobre la cuenta</strong><br></span>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label>Ingreso mensual</label> <input type="text"
+									class="form-control" th:field="*{ingresoMensual}">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="inputState">Moneda</label> <select id="inputState"
+									class="form-control" th:field="*{moneda}">
+									<option selected value="Soles">Soles (S/.)</option>
+									<option value="Dólares">Dólares ($)</option>
+									<option value="Euros">Euros (€)</option>
+									<option value="Libras">Libras (£)</option>
+								</select>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="inputState">Mantenimiento</label> <select
+									id="inputState" class="form-control" th:field="*{tipoMant}">
+									<option selected value="Semanal">Semanal</option>
+									<option value="Quincenal">Quincenal</option>
+									<option value="Mensual">Mensual</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="inputState">Tipo de tasa</label> <select
+									id="inputState" class="form-control" th:field="*{tipoTasa}">
+									<option selected value="Simple">Simple</option>
+									<option value="Nominal">Nominal</option>
+									<option value="Efectiva">Efectiva</option>
+								</select>
+							</div>
+							<div class="form-group col-md-4">
+								<label>Valor de la tasa</label> <input type="text"
+									class="form-control" th:field="*{tasa}">
+							</div>
+						</div>
+
+
+						<button type="submit" class="btn btn-primary">Registrar</button>
+					</form>
+
+
+
+
+
+
+
+
+				</div>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-info" data-dismiss="modal">Entendido</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:fragment="footer">
+
+		<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/chosen.jquery.min.js}"></script>
+		<script th:src="@{/js/fontawesome.min.js}"></script>
+		<script th:src="@{/js/sweetalert.min.js}"></script>
+	</footer>
+
+</body>
+</html>

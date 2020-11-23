@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}">
+<link rel="stylesheet" th:href="@{/css/solid.min.css}">
+<link rel="stylesheet" th:href="@{/css/market.css}">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+
+<title>Inicio</title>
+</head>
+<body class="bg-light">
+
+	<header th:fragment="header">
+
+		<nav class="navbar navbar-expand-lg navbar-custom navbar-dark ">
+
+			<a class="navbar-brand" th:href="@{/}"> <img
+				th:src="@{/images/logo.svg}"
+				style="margin-left: 50px; margin-right: 50px" width="200"
+				height="60" alt="Icons">
+			</a>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					<li class="nav-item"><button class="btn btn-secondary"
+							data-toggle="modal" data-target="#exampleModal">
+							<i class="  fas fa-book"></i> Info
+						</button></li>
+				</ul>
+
+				<a sec:authorize="isAnonymous()" th:href="@{/login}" type="button"
+					class="btn btn-info"
+					style="margin-right: 50px;"> <i class="fas fa-user"></i>
+					Iniciar Sesión
+				</a>
+
+			</div>
+		</nav>
+
+	</header>
+	<div class="d-flex" id="content-wrapper">
+
+		<div class="container">
+			<section>
+
+				<form th:action="@{/signin}"  method="post" style="margin-top: 50px;">
+						<div class="form-group">
+							<label for="exampleInputEmail1">Email address</label> <input
+								type="email" name="username" class="form-control" id="username"
+								aria-describedby="emailHelp"> <small id="emailHelp"
+								class="form-text text-muted">We'll never share your
+								email with anyone else.</small>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Password</label> <input
+								name="password" type="password" class="form-control" id="password">
+						</div>
+						
+						<button type="submit" class="btn btn-success">Ingresar</button>
+					</form>
+
+			</section>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Información de
+						Uso</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body text-justify">
+					<strong>Términos y condiciones</strong><br>Para no hacer
+					demasiado larga esta introducción, PayMeLater es una aplicación
+					desarrollada por alumnos de la Universidad Peruana de Ciencias
+					Aplicadas (UPC) para el curso de Finanzas e Ingeniería Económica.
+					Esta aplicación web está pensada para ser el centro de manejo de
+					los movimientos de un negocio pequeño, usualmente tiendas de barrio
+					y parecidos. PayMeLater, para funcionar, necesitará que ingreses
+					algunos datos de tus clientes, puesto que es parte de nuestra
+					política y estamos tomando en cuenta la <strong>Ley de
+						protección de datos personales (Ley N°29733)</strong>.<br> <br> <strong>Motivación</strong><br>Hay
+					dos cosas que mueven el mundo en que vivimos: código y finanzas.
+					Por ese motivo, es muy importante que aprendamos a administrar
+					correctamente el dinero, nuestras inversiones y nuestras deudas.
+					Estamos viviendo una época en la que casi todo proceso es
+					automatizable. Es por eso por lo que, como estudiantes de
+					ingeniería en sistemas y software, tenemos un compromiso con
+					quienes requieran modernizar sus herramientas de trabajo.
+				</div>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-info" data-dismiss="modal">Entendido</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:fragment="footer">
+
+		<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/chosen.jquery.min.js}"></script>
+		<script th:src="@{/js/fontawesome.min.js}"></script>
+		<script th:src="@{/js/sweetalert.min.js}"></script>
+
+	</footer>
+</body>
+</html>

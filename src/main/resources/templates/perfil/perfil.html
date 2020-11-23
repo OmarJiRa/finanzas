@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}">
+<link rel="stylesheet" th:href="@{/css/solid.min.css}">
+<link rel="stylesheet" th:href="@{/css/market.css}">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+
+<title>Layout</title>
+</head>
+<body class="bg-light">
+
+	<header th:fragment="header">
+
+		<nav class="navbar navbar-expand-lg navbar-custom navbar-dark">
+
+
+			<a class="navbar-brand" th:href="@{layout}"> <img
+				th:src="@{/images/logo.svg}"
+				style="margin-left: 50px; margin-right: 50px" width="200"
+				height="60" alt="Icons">
+			</a>
+
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/pedidos/view}"><i class="fas fa-shopping-bag"></i>
+							Mis Ventas</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/clientes/view}"><i class="fas fa-users"></i> Mis
+							Clientes</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/perfil}"><i class="fas fa-store"></i> Mi
+							Tienda</a></li>
+
+				</ul>
+				<a sec:authorize="isAnonymous()" th:href="@{/login}" type="button"
+					class="btn btn-outline-primary"> <i class="fas fa-user"></i>
+					Iniciar Sesión
+				</a>
+				<ul sec:authorize="isAuthenticated()" class="navbar-nav"
+					style="margin-right: 50px;">
+					<li class="nav-item dropdown"><a
+						class="btn btn-info dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <i class="fas fa-user-circle"></i>
+							User: <span sec:authentication="name">Username</span>
+					</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" th:href="@{/perfil}"> <i
+								class="fas fa-id-card"></i> Ver mi perfil
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a>
+						</div></li>
+				</ul>
+
+			</div>
+
+		</nav>
+	</header>
+	<div class="d-flex" id="content-wrapper">
+
+		<div class="container " style="margin-top: 20px;">
+			<section class="text-center">
+
+				<div class="card w-85 text-center">
+					<div class="card-header"><strong>MI TIENDA</strong></div>
+					<div class="card-body">
+
+						<p class="card-text">
+							Nombres y apellidos: <strong><span
+								th:text="${tienda.propietario}"></span></strong>
+						</p>
+						
+						<p class="card-text">
+							Número de documento: <strong><span
+								th:text="${tienda.numeroDocumento}"></span></strong>
+						</p>
+						
+						<p class="card-text">
+							Nombre de la tienda: <strong><span
+								th:text="${tienda.nombre}"></span></strong>
+						</p>
+
+						<p class="card-text">
+							Dirección de la tienda: <strong><span
+								th:text="${tienda.direccion}"></span></strong>
+						</p>
+
+						
+						<div>
+							<iframe width="60%" height="500px" class="display-block"
+								id="gmap_canvas"
+								th:src="@{${tienda.mapaLink}}"
+								frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+						</div>
+
+
+						<a href="#" class="btn btn-primary">Editar</a>
+					</div>
+				</div>
+
+
+			</section>
+		</div>
+	</div>
+
+	<footer th:fragment="footer">
+
+		<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/chosen.jquery.min.js}"></script>
+		<script th:src="@{/js/fontawesome.min.js}"></script>
+		<script th:src="@{/js/sweetalert.min.js}"></script>
+	</footer>
+
+</body>
+</html>
