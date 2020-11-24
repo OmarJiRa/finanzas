@@ -1,5 +1,6 @@
 package pe.edu.upc.paymelater.models.entities;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "clientes")
@@ -22,6 +24,12 @@ public class Cliente {
 	@ManyToOne
 	@JoinColumn(name = "tienda_id")
 	private Tienda tienda;
+	
+	@Transient
+	private BigDecimal deuda;
+	
+	@Transient 
+	private Float saldo;
 
 	@Column(name = "nombres_apellidos", length = 60, nullable = false)
 	private String nombresApellidos; // lower cammel case
@@ -192,4 +200,14 @@ public class Cliente {
 	public void setTienda(Tienda tienda) {
 		this.tienda = tienda;
 	}
+
+	public BigDecimal getDeuda() {
+		return deuda;
+	}
+
+	public void setDeuda(BigDecimal deuda) {
+		this.deuda = deuda;
+	}
+	
+	
 }

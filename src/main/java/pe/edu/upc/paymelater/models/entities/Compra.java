@@ -1,5 +1,6 @@
 package pe.edu.upc.paymelater.models.entities;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import pe.edu.upc.paymelater.utils.EstadoCompra;
 
@@ -31,6 +33,15 @@ public class Compra {
 	
 	@Column(name = "precio_total", nullable = false)
 	private Float precioTotal;
+	
+	@Transient
+	private BigDecimal subtotal;
+	
+	@Transient
+	private BigDecimal interes;
+	
+	@Transient
+	private BigDecimal total;
 	
 	@Column(name = "fecha_compra", nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -112,6 +123,28 @@ public class Compra {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
-	
+
+	public BigDecimal getInteres() {
+		return interes;
+	}
+
+	public void setInteres(BigDecimal interes) {
+		this.interes = interes;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal bigDecimal) {
+		this.total = bigDecimal;
+	}
+
+	public BigDecimal getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(BigDecimal subtotal) {
+		this.subtotal = subtotal;
+	}
 }
